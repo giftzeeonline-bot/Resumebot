@@ -2,10 +2,12 @@ from pathlib import Path
 import re
 import shutil
 
-import fitz
+import pymupdf as fitz
 import numpy as np
 import streamlit as st
 from sentence_transformers import SentenceTransformer
+
+from synthetic_resumes import create_resume_archive
 
 
 DATASET_HANDLE = "hadikp/resume-data-pdf"
@@ -167,6 +169,22 @@ with st.sidebar:
         "Downloading requires Kaggle API credentials and acceptance of the dataset terms. "
         "You can also download it from Kaggle and enter its folder above."
     )
+
+with st.expander("Create fictional test resumes"):
+    st.write(
+        "Generate 100 synthetic, clearly labeled resumes as two-page PDFs in a ZIP. "
+        "They are useful for testing search and are not real candidate records."
+    )
+    if st.button("Generate 100 sample resumes"):
+        with st.spinner("Creating 100 fictional resume PDFs..."):
+            st.session_state.sample_resume_archive = create_resume_archive()
+    if "sample_resume_archive" in st.session_state:
+        st.download_button(
+            "Download 100 resumes (ZIP)",
+            data=st.session_state.sample_resume_archive,
+            file_name="synthetic_resumes.zip",
+            mime="application/zip",
+        )
 
 job_description = st.text_area(
     "Job description",

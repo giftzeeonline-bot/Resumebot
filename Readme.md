@@ -41,3 +41,8 @@ connection.
 Relevance scores are approximate similarity estimates, not probabilities or
 recommendations to hire. Use them only to assist human review, and assess
 candidates based on job-related criteria.
+
+The **Create fictional test resumes** section generates a ZIP containing 100
+synthetic two-page PDF resumes (about 900 words each) for testing. All names,
+organizations, histories, and contact details are fictional. The generated
+archive is also available as [synthetic_resumes.zip](./synthetic_resumes.zip).
